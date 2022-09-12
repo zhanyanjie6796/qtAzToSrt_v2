@@ -90,20 +90,29 @@ class MainFrame(QFrame, Ui_Form):
         import pathlib
         #print(str(pathlib.Path().absolute())+"\\")
         now_path = str(pathlib.Path().absolute())+"\\" #目前程式所在路徑
+       
         # self.lineEdit.setText("程式所在路徑："+now_path)
-        cmd_str = cmd_str.replace('<now_path>', now_path) #指令 <now_path>
+        # cmd_str = cmd_str.replace('<now_path>', now_path) #指令 <now_path>
+        # 微軟源碼執行檔路徑前後加上 【""】 在程式執行還是不能用。不能處理路徑空白不能識別的 bug。
+        # cmd_str = cmd_str.replace('<now_path>captioning.exe', "\""+now_path+"captioning.exe\"") #指令 <now_path> #處理路徑空白不能識別的 bug。
+        cmd_str = cmd_str.replace('<now_path>', "") #指令 <now_path> now_path 不要用程式路徑反而可以，處理路徑空白不能識別的 bug。 
 
         #輸入檔案的路徑 <inputFile>，和輸出檔案的路徑 <outputFile>        
         if self.lineEdit_FilePath.text() == "":#如果沒有【開啓檔案】，路徑是空的。
             self.textEdit.append("還沒【開啓檔案】\n")
             return
+        self.textEdit.append("目前程式的路徑 <now_path>")
+        self.textEdit.append(now_path +"\n")
+        
         self.textEdit.append("輸入檔案的路徑 <inputFile>")
         self.textEdit.append(self.lineEdit_FilePath.text()+"\n")
-        cmd_str = cmd_str.replace('<inputFile>', self.lineEdit_FilePath.text()) #指令 <inputFile>
+        # cmd_str = cmd_str.replace('<inputFile>', self.lineEdit_FilePath.text()) #指令 <inputFile>
+        cmd_str = cmd_str.replace('<inputFile>', "\""+self.lineEdit_FilePath.text()+"\"") #指令 <inputFile>
         
         self.textEdit.append("輸出檔案的路徑 <outputFile>")
         self.textEdit.append(self.lineEdit_FileOutput.text()+"\n")
-        cmd_str = cmd_str.replace('<outputFile>', self.lineEdit_FileOutput.text()) #指令 <outputFile>
+        # cmd_str = cmd_str.replace('<outputFile>', self.lineEdit_FileOutput.text()) #指令 <outputFile>
+        cmd_str = cmd_str.replace('<outputFile>', "\""+self.lineEdit_FileOutput.text()+"\"") #指令 <outputFile>
 
         #yanjie here home hh
         # self.textEdit.append(self.lineEdit_AzKey.text())
@@ -117,7 +126,7 @@ class MainFrame(QFrame, Ui_Form):
         #os.system(str(now_path)+"Transcribe.bat")
         # os.system("captioning.exe")
         os.system(cmd_str)
-        self.textEdit.append("轉換完成") 
+        self.textEdit.append("==============  執行結束  ==============") 
 
 
 
