@@ -1,6 +1,6 @@
 v2—20220912:更新
 	解決路徑中含有空白不能執行的問題。
-	測試音檔【許院長開幕致詞.wav】會出現 "NOMATCH: Speech could not be recognized."
+	測試音檔【許院長開幕致詞.wav】會出現 "NOMATCH: Speech could not be recognized."，
 	的錯誤訊息，測試發現因爲音檔剛剛開始的5秒沒有説話，把前面五秒剪掉就可以識別。
 	另外音檔中如有雜音的時候也會出現 "NOMATCH: Speech could not be recognized." 的訊息。
 
